@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+	<div class="jumbotron">
+	<h1>{{blog[1]}}</h1>
+	<small>Written by {{blog[3]}} on {{blog[4]}}</small>
+	<hr>
+	<div>
+		{{blog[2] | safe}}
+	</div>
+	<br>
+	<hr>
+	<br>
+	{% if session.logged_in %}
+	<center><a class="btn btn-outline-dark" href="/viewer_reply/{{blog[0]}}">Add a comment</a></center>
+	{% endif %}	
+</div>
+<br>
+<div class="container">
+	{% for i in comment_list %}
+		<h5>Replied by {{i[1]}} on {{i[3]}}</h5>
+		<hr>
+		<p>{{i[0] | safe}}</p>
+		<br>
+	{% endfor %}
+	</div>
+</div>
+{% endblock %}		

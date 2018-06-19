@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search" title="Search" class="form-control mr-sm-2" style="margin-top: -24px">
+<table class="table table-dark bg-dark table-striped text-center" id="myTable">
+	<thead>
+		<tr>
+		    <th>RANK</th>
+			<th></th>
+			<th>NAME</th>
+			<th>RATING</th>
+			{% if session.logged_in %}
+			<th></th>
+			{% endif %}
+		</tr>
+	</thead>
+	<tbody>
+	    {% set count = [1] %}
+		{% for an in animelist %}
+		<tr>
+		    <td>{{ count[0] }}</td>
+			<td><a href="/animelist/{{ an.id }}"><img src="{{ an.shortimage }}"></a></td>
+			<td><a href="/animelist/{{ an.id }}" style="font-weight: bold;color: #185875;"><u>{{ an.name }}</u></a></td>
+			<td>{{an.rating}}</td>
+			{% if session.logged_in %}
+			{% if an.id in favid %}
+			<td><a href="/removed/{{ an.id }}" class="btn btn-outline-success"><i class="material-icons">highlight_off</i></a></td>
+			{% else %}
+			<td><a href="/added/{{ an.id }}" class="btn btn-outline-danger"><i class="material-icons">favorite</i></a></td>
+			{% endif %}
+			{% endif %}
+		</tr>
+		{% if count.append(count.pop() + 1) %}{% endif %}
+		{% endfor %}
+		
+	</tbody>
+</table>
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+{% endblock %}

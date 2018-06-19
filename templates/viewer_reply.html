@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+	<div class="jumbotron">
+	<center><h1>Viewer Reply</h1></center>
+	{% from "includes/_formhelpers.html" import render_field %}
+	<form method="POST" action="">
+		<div class="form-group">
+			{{ render_field(form.body, class_="form-control",id="editor") }}
+		</div>
+		<center><input class="btn btn-outline-dark" type="submit" value="Submit"></center>
+	</form>
+</div>
+</div>
+{% endblock %}	 

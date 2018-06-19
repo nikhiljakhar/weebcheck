@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+<br>
+	<h1>Blogs</h1>
+	<hr>
+<br>	
+	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for username" title="Search" class="form-control mr-sm-2" style="padding-top:10px;margin-bottom: 10px">
+	<table class="table table-bordered table-light table-hover text-center" id="myTable">
+		<thead class="thead-dark">	
+		<tr>
+			<th>Title</th>
+			<th>Author</th>
+			{% if session.logged_in %}
+			<th></th>
+			<th></th>
+			<th></th>
+			{% endif %}
+			<th></th>
+		</tr>
+	</thead>
+		{% for blog in blogs %}
+			<tr>
+				<td>
+					<a href="blogs/{{blog[0]}}">{{blog[1]}}</a>
+				</td>
+				<td>
+					{{blog[3]}}
+				</td>
+				{% if session.username == blog[3] %}
+				<td>
+					<a href="/edit_blog/{{blog[0]}}">Edit</a>
+				</td>
+				<td>
+					<a href="/delete_blog/{{blog[0]}}">Delete</a>
+				</td>
+				{% endif %}
+				{% if session.logged_in %}
+				<td>
+					{% if blog[0] not in like_ids %}
+					<a href="/like/{{blog[0]}}" class="btn btn-outline-info btn-small"><i class="material-icons">thumb_up</i>
+					{% else %}
+					<a href="/remove_like/{{blog[0]}}" class="btn btn-outline-danger btn-small"><i class="material-icons">clear</i>
+					{% endif %}
+				</td>
+				{% endif %}
+				<td>
+					{{blog[5]}} users like this
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+	{% if session.logged_in %}
+	<a href="/add_blog" class="btn btn-outline-dark">Add blog</a>
+	{% endif %}
+</div>
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+{% endblock %}	

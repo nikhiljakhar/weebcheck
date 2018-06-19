@@ -1,0 +1,154 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+<div class="jumbotron">
+{% if fl1 %}
+<h2>Watched:</h2>
+<table class="table table-striped text-center" id="myTable">
+	<thead>
+		<tr>
+			<th></th>
+			<th>NAME</th>
+			<th>RATING</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for an in watched %}
+		<tr>
+			<td><a href="/animelist/{{ an[0] }}"><img src="{{ an[4] }}"></a></td>
+			<td><a href="/animelist/{{ an[0] }}" style="font-weight: bold;color: #185875;"><u>{{ an[1] }}</u></a></td>
+			<td>{{an[5]}}</td>
+		</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+
+<br>
+<br>
+{% endif %}
+{% if fl2 %}
+<h2>Watching:</h2>
+<table class="table table-striped text-center" id="myTable">
+	<thead>
+		<tr>
+			<th></th>
+			<th>NAME</th>
+			<th>RATING</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for an in watching %}
+		<tr>
+			<td><a href="/animelist/{{ an[0] }}"><img src="{{ an[4] }}"></a></td>
+			<td><a href="/animelist/{{ an[0] }}" style="font-weight: bold;color: #185875;"><u>{{ an[1] }}</u></a></td>
+			<td>{{an[5]}}</td>
+		</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+
+<br>
+<br>
+{% endif %}
+{% if fl3 %}
+<h2>Planning to watch:</h2>
+<table class="table table-striped text-center" id="myTable">
+	<thead>
+		<tr>
+			<th></th>
+			<th>NAME</th>
+			<th>RATING</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for an in planing %}
+		<tr>
+			<td><a href="/animelist/{{ an[0] }}"><img src="{{ an[4] }}"></a></td>
+			<td><a href="/animelist/{{ an[0] }}" style="font-weight: bold;color: #185875;"><u>{{ an[1] }}</u></a></td>
+			<td>{{an[5]}}</td>
+		</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+<br>
+<br>
+{% endif %}
+{% if fl4 %}
+<h2>Completed:</h2>
+<table class="table table-striped text-center" id="myTable">
+	<thead>
+		<tr>
+			<th></th>
+			<th>NAME</th>
+			<th>RATING</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for an in mwatched %}
+		<tr>
+			<td><a href="/mangalist/{{ an[0] }}"><img src="{{ an[4] }}"></a></td>
+			<td><a href="/mangalist/{{ an[0] }}" style="font-weight: bold;color: #185875;"><u>{{ an[1] }}</u></a></td>
+			<td>{{an[5]}}</td>
+		</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+
+<br>
+<br>
+{% endif %}
+{% if fl5 %}
+<h2>Reading:</h2>
+<table class="table table-striped text-center" id="myTable">
+	<thead>
+		<tr>
+			<th></th>
+			<th>NAME</th>
+			<th>RATING</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for an in mwatching %}
+		<tr>
+			<td><a href="/mangalist/{{ an[0] }}"><img src="{{ an[4] }}"></a></td>
+			<td><a href="/mangalist/{{ an[0] }}" style="font-weight: bold;color: #185875;"><u>{{ an[1] }}</u></a></td>
+			<td>{{an[5]}}</td>
+		</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+
+<br>
+<br>
+{% endif %}
+{% if fl6 %}
+<h2>Planning to read:</h2>
+<table class="table table-striped text-center" id="myTable">
+	<thead>
+		<tr>
+			<th></th>
+			<th>NAME</th>
+			<th>RATING</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for an in mplaning %}
+		<tr>
+			<td><a href="/mangalist/{{ an[0] }}"><img src="{{ an[4] }}"></a></td>
+			<td><a href="/mangalist/{{ an[0] }}" style="font-weight: bold;color: #185875;"><u>{{ an[1] }}</u></a></td>
+			<td>{{an[5]}}</td>
+		</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+{% endif %}
+</div>
+</div>
+{% endblock %}

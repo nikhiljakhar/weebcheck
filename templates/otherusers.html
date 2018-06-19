@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+<div class="jumbotron">
+<h1 style="margin-bottom: 1.5rem">See what others are doing:</h1>
+<hr style="margin-bottom: 3rem;margin-top: 0.1rem;border-top: 1px solid black;">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search" title="Search" class="form-control mr-sm-2" style="margin-top: -24px">
+<table class="table table-striped text-center" id="myTable">
+	<thead>
+		<tr>
+			<th style="border: 1px solid black">NAME</th>
+		</tr>
+	</thead>
+  <br>
+  <br>
+	<tbody>
+	{% for an in allusers %}
+		<tr>
+			<td><a href="/otherusers/{{ an }}" style="font-weight: bold;color: #185875;text-transform: uppercase;">{{ an }}</a></td>
+		</tr>
+	{% endfor %}
+
+	</tbody>	
+</table>
+</div>
+</div>
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+{% endblock %}

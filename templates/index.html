@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  	<div class="container">
+      <div class="jumbotron text-center">
+        <h1>Welcome to WeebCheck</h1>
+        {% if session.logged_in == NULL %}
+          <a class="btn btn-lg btn-outline-dark" href="signup" role="presentation" >Sign Up</a>
+          <a class="btn btn-lg btn-outline-dark" href="login" role="presentation" >Sign In</a>
+        {% endif %}
+      </div>
+      <h2 class="text-center">Must Watch:</h2>
+      <table class="table table-dark bg-dark table-striped text-center" id="myTable">
+  <thead>
+    <tr>
+      <th></th>
+      <th>NAME</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="/animelist/20"><img src="https://myanimelist.cdn-dena.com/r/50x70/images/anime/13/17405.jpg?s=59241469eb470604a792add6fbe7cce6"></a></td>
+      <td><a href="/animelist/20" style="font-weight: bold;color: #185875;">Naruto</a></td>
+    </tr>
+    <tr>
+      <td><a href="/animelist/1735"><img src="https://myanimelist.cdn-dena.com/r/50x70/images/anime/5/17407.jpg?s=2bf24a22a339223dcadb1cdfc3307b61"></a></td>
+      <td><a href="/animelist/1735" style="font-weight: bold;color: #185875;">Naruto Shippuuden</a></td>
+    </tr>
+    <tr>
+      <td><a href="/animelist/28977"><img src="https://myanimelist.cdn-dena.com/r/50x70/images/anime/3/72078.jpg?s=e9537ac90c08758594c787ede117f209"></a></td>
+      <td><a href="/animelist/28977" style="font-weight: bold;color: #185875;">Gintama°</a></td>
+    </tr>
+    <tr>
+      <td><a href="/animelist/9969"><img src="https://myanimelist.cdn-dena.com/r/50x70/images/anime/4/50361.jpg?s=b3a061db8c3d42a055d58f9df1f3dac7"></a></td>
+      <td><a href="/animelist/9969" style="font-weight: bold;color: #185875;">Gintama</a></td>
+    </tr>
+    <tr>
+      <td><a href="/animelist/9253"><img src="https://myanimelist.cdn-dena.com/r/50x70/images/anime/5/73199.jpg?s=97b97d568f25a02cf5a22dda13b5371f"></a></td>
+      <td><a href="/animelist/9253" style="font-weight: bold;color: #185875;">Steins Gate</a></td>
+    </tr>
+    <tr>
+      <td><a href="/animelist/5114"><img src="https://myanimelist.cdn-dena.com/r/50x70/images/anime/5/47421.jpg?s=c04effa07d51c3c101482d2a8db269a8"></a></td>
+      <td><a href="/animelist/5114" style="font-weight: bold;color: #185875;">Full Metal Alcheimist</a></td>
+    </tr>
+    <tr>
+      <td><a href="/animelist/2904"><img src="https://myanimelist.cdn-dena.com/r/50x70/images/anime/4/9391.jpg?s=be052972605dd5422ef2df117766cff0"></a></td>
+      <td><a href="/animelist/2904" style="font-weight: bold;color: #185875;">Code Geass</a></td>
+    </tr>
+  </tbody>
+</table>    
+      <footer class="footer">
+        <p>&copy; Nikhil Jakhar, Shikhar Shyasa 2018</p>
+      </footer>
+    </div>
+{% endblock %}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AnimeRating</title>
+	<style>
+			.stars-outer {
+	  			position: relative;
+	 			display: inline-block;
+			}
+
+			.stars-inner {
+			   position: absolute;
+			   top: 0;
+			   left: 0;
+			   white-space: nowrap;
+			   overflow: hidden;
+			   width: 0;
+			}
+			.stars-outer::before {
+			  content: "\f005 \f005 \f005 \f005 \f005 \f005 \f005 \f005 \f005 \f005";
+			  font-family: "Font Awesome 5 Free";
+			  font-weight: 900;
+			  color: #ccc;
+			}
+			.stars-inner::before {
+			  content: "\f005 \f005 \f005 \f005 \f005 \f005 \f005 \f005 \f005 \f005";
+			  font-family: "Font Awesome 5 Free";
+			  font-weight: 900;
+			  color: #f8ce0b;
+			}
+	</style>
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container mt-5">
+		<div class="form-group">
+			<select id="product-select" class="form-control custom-select">
+				<option value="0" disabled selected>Select Anime</option>
+       			<option value="Gintama">Gintama</option>
+		        <option value="FMAB">FMAB</option>
+		        <option value="OnePiece">OnePiece</option>
+		        <option value="Naruto">Naruto</option>
+		        <option value="SoulEater">SoulEater</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<input type="number" id="rating-control" class="form-control" step="0.1" max="10" placeholder="Rate 1 - 10" disabled>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Anime</th>
+					<th>Rating</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="Gintama">
+					<td>Gintama</td>
+					<td>
+						<div class="stars-outer">
+							<div class="stars-inner"></div>
+						</div>
+						<span class="number-rating"></span>
+					</td>
+				</tr>
+				<tr class="FMAB">
+					<td>FMAB</td>
+					<td>
+						<div class="stars-outer">
+							<div class="stars-inner"></div>
+						</div>
+						<span class="number-rating"></span>
+					</td>
+				</tr>
+				<tr class="OnePiece">
+					<td>OnePiece</td>
+					<td>
+						<div class="stars-outer">
+							<div class="stars-inner"></div>
+						</div>
+						<span class="number-rating"></span>
+					</td>
+				</tr>
+				<tr class="Naruto">
+					<td>Naruto</td>
+					<td>
+						<div class="stars-outer">
+							<div class="stars-inner"></div>
+						</div>
+						<span class="number-rating"></span>
+					</td>
+				</tr>
+				<tr class="SoulEater">
+					<td>SoulEater</td>
+					<td>
+						<div class="stars-outer">
+							<div class="stars-inner"></div>
+						</div>
+						<span class="number-rating"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		const ratings={
+			Gintama: 10,
+			FMAB: 9.1,
+			OnePiece: 9,
+			Naruto: 9,
+			SoulEater: 8.4
+		}
+		const total = 10;
+		document.addEventListener('DOMContentLoaded',get_ratings);
+		const ProductSelect = document.getElementById('product-select');
+		const rating_control = document.getElementById('rating-control');
+		let product;
+		ProductSelect.addEventListener('change', (e) => {
+			product = e.target.value;
+			// console.log(product);
+			rating_control.disabled = false;
+			rating_control.value = ratings[product];
+		});
+		rating_control.addEventListener('blur', (e) => {
+		    const rating = e.target.value;
+		    if (rating > 10)
+		    {
+		       alert('Please rate 1 - 10');
+		    }
+		    else
+		    {
+		       ratings[product] = rating;
+		       get_ratings();
+		    }
+     	 });
+		function get_ratings() {
+			// body...
+			for(var rating in ratings){
+				var starpercent = (ratings[rating]/total) * 100;
+				starpercent = `${starpercent}%`
+				document.querySelector(`.${rating} .stars-inner`).style.width = starpercent;
+			}
+		}
+	</script>
+
+</body>
+</html>

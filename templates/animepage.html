@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WeebCheck</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+      .stars-container {
+          position: relative;
+          display: inline-block;
+          color: transparent;
+      }
+
+      .stars-container:before {
+          position: absolute;
+          top: -30px;
+          left: 0;
+          content: '★★★★★★★★★★';
+          color: lightgray;
+      }
+
+      .stars-container:after {
+          position: absolute;
+          top: -30px;
+          left: 0;
+          content: '★★★★★★★★★★';
+          color: gold;
+          overflow: hidden;
+      }
+      .stars-container1 {
+          position: relative;
+          display: inline-block;
+          color: transparent;
+      }
+
+      .stars-container1:before {
+          position: absolute;
+          top: 5px;
+          left: 0;
+          content: '★★★★★★★★★★';
+          color: lightgray;
+      }
+
+      .stars-container1:after {
+          position: absolute;
+          top: 5px;
+          left: 0;
+          content: '★★★★★★★★★★';
+          color: gold;
+          overflow: hidden;
+      }
+	</style>
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="/">WeebCheck</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/animelist">Anime <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/mangalist">Manga <span class="sr-only">(current)</span></a>
+          </li>
+          {% if session.logged_in %}
+            <li class="nav-item active">
+            <a class="nav-link" href="/otherusers">SPY <span class="sr-only">(current)</span></a>
+          </li>
+          {% endif %}
+          <li class="nav-item active">
+            <a class="nav-link" href="/blogs">Blogs <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+          {% if session.logged_in %}
+          <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item dropdown"  style="padding-right: 10px">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="text-transform: uppercase;">
+            {{ session.username }}
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/dashboard">Dashboard</a>
+              <a class="dropdown-item" href="/logout">Logout</a>
+          </div>
+          </li>
+          </ul>
+          {% else %}
+          <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          </ul>
+          {% endif %}
+
+      </div>
+    </nav>
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <img src="{{ anim.imagelink }}" width="99%">
+      <br>
+      <br>
+       <div class="jumbotron">
+       <p><b>{{ anim.episodes | safe }}</b></p>
+       <p><b>Producer:</b> {{ anim.producer }}</p>
+       <p><b>Licensor: </b>{{ anim.licensor }}</p>
+       <p><b>Genre:</b> {{ anim.genre1 }}, {{ anim.genre2 }}, {{ anim.genre3 }}, {{ anim.genre4 }}, {{ anim.genre5 }}, {{ anim.genre6 }}, {{ anim.genre7 }}, {{ anim.genre8 }}</p>
+       {% if session.logged_in %}
+       {% if flag %}
+         <p><b>Your Rating:</b></p>
+         <p id="animeid">{{ myrating }}</p>
+       {% else %}
+         <p><b>Your Rating:</b></p>
+         <p id="animeid">You have not rated it</p>
+       {% endif %}
+       {% endif %}
+         <p><b>Average Rating:</b></p>
+         <p id="average">{{ avg }}</p>
+      </div>
+    </div>
+    <div class="col-sm-8 text-left"> 
+      
+      <h1>{{ anim.name }}
+      </h1>
+      <p>{{ anim.description | safe }}</p>
+      <hr>
+      {% if session.logged_in %}
+      <h2>Rate this Anime:</h2>
+      <div class="jumbotron">
+        <div class="form-group">
+          <input type="number" id="rating-control" class="form-control" step="0.1" max="10" placeholder="Rate 1 - 10">
+          <br><br>
+          {% if flag %}
+            <div id="fixture"></div>
+          <a id="bak" href=""><button onclick="myfunc1()" class="btn btn-outline-dark">Change my Rating</button></a>
+          {% else %}
+          <a id="bakchod" href=""><button onclick="myfunc()" class="btn btn-outline-dark">Rate it</button></a>
+          {% endif %}
+		    </div>
+      </div>
+      {% endif %}
+    </div>
+    
+    <div class="col-sm-2 sidenav">
+        <div class="jumbotron" style="padding-left: 5px; padding-right:5px">
+        	<h4>Average Rating:</h4>
+          <div id="fixture1"></div>
+          {% if session.logged_in %}
+            <br>
+            <h4>Add to:</h4>
+            <br>
+            {% if f1 %}
+            <a href="/removedp/{{ anim.id }}" class="btn btn-outline-success btn-block">Favorite</a>
+            {% else %}
+            <a href="/addedp/{{ anim.id }}" class="btn btn-outline-dark btn-block">Favorite</a>
+            {% endif %}
+            <br>
+            {% if f2 %}
+            <a href="/removedinwatched/{{ anim.id }}" class="btn btn-outline-success btn-block">Watched</a>
+            {% else %}
+            <a href="/addedinwatched/{{ anim.id }}" class="btn btn-outline-dark btn-block">Watched</a>
+            {% endif %}
+            <br>
+            {% if f3 %}
+            <a href="/removedinwatching/{{ anim.id }}" class="btn btn-outline-success btn-block">Watching</a>
+            {% else %}
+            <a href="/addedinwatching/{{ anim.id }}" class="btn btn-outline-dark btn-block">Watching</a>
+            {% endif %}
+            <br>
+            {% if f4 %}
+            <a href="/removedinplaning/{{ anim.id }}" class="btn btn-outline-success btn-block">Planning</a>
+            {% else %}
+            <a href="/addedinplaning/{{ anim.id }}" class="btn btn-outline-dark btn-block">Planning</a>
+            {% endif %}
+
+          {% endif %}
+        </div>
+    </div>
+<!--     </div> -->
+  </div>
+</div>
+<script>
+    const rating_control = document.getElementById('rating-control');    
+    var avg_rating = document.getElementById('average').innerHTML;
+    $(function() {
+        function addscore(score, $domElement) {
+            var starWidth = "<style>.stars-container1:after { width: " + score + "%} </style>";
+            $("<span class='stars-container1'>")
+              .text("★★★★★★★★★★")
+              .append($(starWidth))
+              .appendTo($domElement);
+        }
+        addscore(avg_rating*10,$("#fixture1"));
+    });
+    var rating = document.getElementById('animeid').innerHTML;
+    var x1=1,x2=2;
+    var rat=0;
+    console.log(rating);
+    rating_control.addEventListener('change', (e) => {
+          rat = e.target.value;
+          if(rat>10)
+          {
+            alert('Rate between 1-10');
+          }
+        });
+    $(function() {
+        function addScore(score, $domElement) {
+            var starWidth = "<style>.stars-container:after { width: " + score + "%} </style>";
+            $("<span class='stars-container'>")
+              .text("★★★★★★★★★★")
+              .append($(starWidth))
+              .appendTo($domElement);
+        }
+        function addScore1(score, $domElement) {
+            var starWidth = "<style>.stars-container:after { width: " + score + "%} </style>";
+            $("<span class='stars-container'>")
+              .text("★★★★★★★★★★")
+              .append($(starWidth))
+              .appendTo($domElement);
+        }
+        if(rating!="You have not rated it" && rat==0)
+        {
+            addScore(rating*10, $("#fixture"));
+        }
+        if(rat!=0)
+        {  
+            addScore1(rat*10, $("#fixture"));
+        }
+    });  
+    function myfunc1()
+    {
+      document.getElementById('bak').href = `${rat}/${x2}`;
+      document.getElementById('animeid').innerHTML = rat;
+    }
+    function myfunc()
+    {
+        console.log(rat);
+        document.getElementById('bakchod').href = `${rat}/${x1}`;
+        document.getElementById('animeid').innerHTML = rat;
+    }
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+	<div class="jumbotron">
+	<h1 align="center">Login to WeebCheck</h1>
+		<form action="" method="POST" class="form-signin">
+		<div class="form-group">
+			<label>Username</label>
+			<input type="text" name="username" class="form-control" value="{{request.form.username}}">
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input type="password" name="password" class="form-control" value="{{request.form.password}}">
+		</div>
+		<button type="submit" class="btn btn-lg btn-outline-dark btn-block">LOG IN</button>
+	</form>
+	</div>
+	<footer class="footer">
+        <p>&copy; Nikhil Jakhar, Shikhar Shyasa 2018</p>
+      </footer>
+    </div>
+{% endblock %}
