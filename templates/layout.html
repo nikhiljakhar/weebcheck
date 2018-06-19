@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WeebCheck</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <!-- <link href="../static/css/animetable.css" rel="stylesheet"> -->
+    <link href="../static/css/signup.css" rel="stylesheet">
+    <link href="../static/css/star.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    
+
+
+    
+  </head>
+  <body>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="/">WeebCheck</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/animelist">Anime <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/mangalist">Manga <span class="sr-only">(current)</span></a>
+          </li>
+          {% if session.logged_in %}
+            <li class="nav-item active">
+            <a class="nav-link" href="/otherusers">SPY <span class="sr-only">(current)</span></a>
+          {% endif %}
+          <li class="nav-item active">
+            <a class="nav-link" href="/blogs">Blogs <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+          {% if session.logged_in %}
+
+          <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item dropdown"  style="padding-right: 10px">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="text-transform: uppercase;">
+            {{ session.username }}
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/dashboard">Dashboard</a>
+              <a class="dropdown-item" href="/logout">Logout</a>
+          </div>
+          </li>
+          </ul>
+          {% else %}
+          <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item">
+            <a class="nav-link" href="/signup">Register</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          </ul>
+          {% endif %}
+
+      </div>
+    </nav>
+    
+      {% include 'includes/_messages.html' %}
+      {% block body %}{% endblock %}
+      <script type="text/javascript">
+      CKEDITOR.replace('editor')
+    </script>
+  </body>
+</html>
