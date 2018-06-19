@@ -6,14 +6,7 @@ import sqlite3, time
 
 mal = "https://myanimelist.net/"
 topanimelist = "https://myanimelist.net/topanime.php?limit=14150"
-#0 to 14150
 topmangalist = "https://myanimelist.net/topmanga.php?limit=46100"
-#0 to 46100
-searchmal = "https://myanimelist.net/search/prefix.json?type=all&keyword=boku&v=1"
-malanime = "https://myanimelist.net/search/prefix.json?type=anime&keyword=boku&v=1"
-malmanga = "https://myanimelist.net/search/prefix.json?type=manga&keyword=boku&v=1"
-malcharacter = "https://myanimelist.net/search/prefix.json?type=character&keyword=boku&v=1"
-maluser = "https://myanimelist.net/search/prefix.json?type=user&keyword=boku&v=1"
 
 
 conn = sqlite3.connect('weebcheck.db')
