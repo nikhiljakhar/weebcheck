@@ -4,7 +4,9 @@ import operator
 from passlib.hash import sha256_crypt
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from functools import wraps
-
+from new_recommeder import df,cosine_sim
+from return_similar_anime import return_similar_to_favourite
+from return_similar_manga import return_similar_to_mfavourite
 
 gusername = ""
 gid = ""
@@ -138,6 +140,7 @@ def dashboard():
         list1.append(rest)
         #print(intol['name'])
     curs.close()
+    another_one = return_similar_to_favourite(list1)
     curso = conn.cursor()
     result = curso.execute("SELECT * FROM muserfavourite WHERE username = ?", [gusername])
     data = curso.fetchall()
@@ -149,6 +152,7 @@ def dashboard():
         list2.append(rest)
         #print(intol['name'])
     curso.close()
+    manother_one = return_similar_to_mfavourite(list1)
     cu = conn.cursor()
     resul = cu.execute("SELECT * FROM genres WHERE username = ?", [gusername])
     sc = cu.fetchone()
@@ -209,7 +213,7 @@ def dashboard():
 
 
 
-    return render_template('dashboard.html',list1=list1,list2=list2,rec1=rec1,rec2=rec2,rec3=rec3,rec4=rec4,rec5=rec5,rec6=rec6,rec7=rec7,mrec1=mrec1,mrec2=mrec2,mrec3=mrec3,mrec4=mrec4,mrec5=mrec5,mrec6=mrec6,mrec7=mrec7)
+    return render_template('dashboard.html',list1=list1,list2=list2,rec1=another_one,mrec1=manother_one)
 
 
 @app.route('/animelist/<string:id>/')
